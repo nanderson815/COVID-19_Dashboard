@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from '../logo.svg';
-import '../styles/App.css';
-
+import React from "react";
+import "../styles/App.css";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+import Dashboard from "./Dashboard";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Query query={ROOT_QUERY}>
+        {({ loading, error, data }) => {
+          if (loading) return <div>Loading....</div>;
+          if (error) return <div>Error!</div>;
+
+          const dataToRender = data.locations;
+
+          return <Dashboard data={dataToRender} />;
+        }}
+      </Query>
     </div>
   );
 }
 
 export default App;
+
+const ROOT_QUERY = gql`
+  {
+    locations {
+      Lat
+      Long_
+      Confirmed
+      Deaths
+      Recovered
+      Admin2
+      Province_State
+      Country_Region
+    }
+  }
+`;
