@@ -1,0 +1,19 @@
+type Query {
+  locations: [Location!]!
+}
+
+type Location {
+  id: ID!
+  FIPS: Int
+  Admin2: String
+  Province_State: String
+  Country_Region: String!
+  Last_Update: String!
+  Lat: Float
+  Long_: Float
+  Confirmed: Int!
+  Deaths: Int!
+  Recovered: Int!
+  Active: Int!
+  Combined_Key: String!
+}
